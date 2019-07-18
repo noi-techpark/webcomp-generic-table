@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+    app:
+        image: node
+        working_dir: /code
+        command: npm run serve
+        volumes:
+            - ./:/code
+        ports:
+            - "8888:8080"
