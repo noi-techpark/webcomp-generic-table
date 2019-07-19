@@ -1,10 +1,10 @@
-import { callGet } from '../api/ninjaApi';
+import { callGet } from "../api/ninjaApi";
 
-const SET_STATION_TYPES = 'SET_STATION_TYPES'
-const SET_STATIONS = 'SET_STATIONS'
-const SET_STATION = 'SET_STATION'
-const CLEAR_STATIONS = 'CLEAR_STATIONS'
-const CLEAR = 'CLEAR'
+const SET_STATION_TYPES = "SET_STATION_TYPES";
+const SET_STATIONS = "SET_STATIONS";
+const SET_STATION = "SET_STATION";
+const CLEAR_STATIONS = "CLEAR_STATIONS";
+const CLEAR = "CLEAR";
 
 export default {
 	state: {
@@ -36,28 +36,28 @@ export default {
 	actions: {
 		async fetchStationTypes({ commit }) {
 			return callGet("/")
-				.then((response) => {
-					commit(SET_STATION_TYPES, response)
+				.then(response => {
+					commit(SET_STATION_TYPES, response);
 				})
 				.catch(() => {
-					commit(CLEAR)
-				})
+					commit(CLEAR);
+				});
 		},
 		async fetchStations({ commit }, st) {
 			if (!st) {
 				st = "*";
 			}
 			return callGet("/flat/" + st, {
-					limit: -1,
-					select: "scode,stype,sname,sorigin,scoordinate",
-					where: "scoordinate.neq.null,sactive.eq.true",
-					distinct: true
-				})
+				limit: -1,
+				select: "scode,stype,sname,sorigin,scoordinate",
+				where: "scoordinate.neq.null,sactive.eq.true",
+				distinct: true
+			})
 				.then(response => {
-					commit(SET_STATIONS, response)
+					commit(SET_STATIONS, response);
 				})
 				.catch(e => {
-					commit(CLEAR)
+					commit(CLEAR);
 				});
 		},
 		fetchStation({ commit }) {
@@ -65,10 +65,10 @@ export default {
 			return null;
 		},
 		clearStations({ commit }) {
-			commit(CLEAR_STATIONS)
+			commit(CLEAR_STATIONS);
 		},
 		clear({ commit }) {
-			commit(CLEAR)
+			commit(CLEAR);
 		}
 	},
 	getters: {
@@ -76,13 +76,13 @@ export default {
 			return state.stationTypes;
 		},
 		stations(state) {
-			return state.stations
+			return state.stations;
 		},
 		getError(state) {
-			return state.error
+			return state.error;
 		},
 		station(state) {
-			return state.station
-		},
+			return state.station;
+		}
 	}
-}
+};
