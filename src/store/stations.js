@@ -1,6 +1,8 @@
 import { callGet } from "../api/ninjaApi";
+import { stat } from "fs";
 
 const SET_STATION_TYPES = "SET_STATION_TYPES";
+const TOGGLE_STATION_TYPE = "TOGGLE_STATION_TYPE";
 const SET_STATIONS = "SET_STATIONS";
 const SET_STATION = "SET_STATION";
 const CLEAR_STATIONS = "CLEAR_STATIONS";
@@ -9,6 +11,7 @@ const CLEAR = "CLEAR";
 export default {
 	state: {
 		stationTypes: null,
+		stationTypesState: null,
 		stations: null,
 		station: null,
 		errors: []
@@ -22,6 +25,12 @@ export default {
 		},
 		[SET_STATION_TYPES](state, stationTypes) {
 			state.stationTypes = stationTypes;
+			state.stationTypesState = stationTypes.map((_ => {
+				return false;
+			}));
+		},
+		[TOGGLE_STATION_TYPE](state, key) {
+			state.stationTypesState[key] = !state.stationTypesState[key];
 		},
 		[CLEAR_STATIONS](state) {
 			state.station = null;
@@ -42,6 +51,9 @@ export default {
 				.catch(() => {
 					commit(CLEAR);
 				});
+		},
+		async toggleStationType({ commit, state }, key) {
+			commit(TOGGLE_STATION_TYPE, key);
 		},
 		async fetchStations({ commit }, st) {
 			if (!st) {
@@ -73,7 +85,19 @@ export default {
 	},
 	getters: {
 		stationTypes(state) {
-			return state.stationTypes;
+			if (state.stationTypes === null) {
+				return null;
+			}
+
+			return state.stationTypes.map((value, index) => {
+				return {
+					name: value,
+					active: state.stationTypesState[index]
+				}
+			});
+		},
+		stationTypesState(state) {
+			return state.stationTypesState;
 		},
 		stations(state) {
 			return state.stations;

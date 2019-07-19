@@ -1,6 +1,16 @@
 <template>
 	<div class="row">
-		<div class="col-md-3">
+		<Categories class="col-md-3">
+			<template v-slot:default>
+				Hello World {{ from }}!
+			</template>
+			<template v-slot:subtitle="{ hey }">
+				<h2>Here might be a page title {{ hey }}</h2>
+			</template>
+		</Categories>
+
+
+		<!-- <div class="col-md-3">
 			<label class="form-check-label">
 				<ul v-if="categories && categories.length">
 					<li
@@ -23,8 +33,8 @@
 				</ul>
 				<p v-else>No station types or categories found!</p>
 			</label>
-		</div>
-		<div class="col-md-9">
+		</div> -->
+		<div class="col-md-6">
 			<div class="table">
 				<simple-table
 					:cols="tableCols"
@@ -45,15 +55,18 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Categories from "../components/Categories";
 import SimpleTable from "../components/SimpleTable";
 
 export default {
 	name: "Table",
 	components: {
+		Categories,
 		SimpleTable
 	},
 	data() {
 		return {
+			from: 'from Alex',
 			title: "Table",
 			categories: [],
 			tableData: [],
@@ -108,10 +121,10 @@ export default {
 			}
 		}
 	},
-	mounted() {
-		this.fetchStationTypes();
-		this.fetchStations();
-	}
+	// mounted() {
+	// 	this.fetchStationTypes();
+	// 	this.fetchStations();
+	// }
 };
 </script>
 
