@@ -6,17 +6,21 @@ import MapView from "./views/MapView.vue";
 Vue.use(Router);
 
 export default new Router({
-  routes: [
-    {
-      path: "/table",
-      name: "table",
-      component: TableView
-    },
-    {
-      path: "/map",
-      name: "map",
-      component: MapView
-    }
-
-  ]
+	mode: 'history',
+	routes: [
+		{
+			path: "/",
+			redirect: "/map"
+		},
+		{
+			path: "/table",
+			name: "table",
+			component: TableView
+		},
+		{
+			path: "/map",
+			name: "map",
+			component: MapView
+		}
+	]
 });

@@ -15,17 +15,17 @@ pipeline {
     stages {
         stage('Dependencies') {
             steps {
-                sh 'yarn install'
+                sh 'npm install'
             }
         }
         stage('Test') {
             steps {
-                sh 'echo skipppppp yarn run test:unit'
+                sh 'npm run test:unit'
             }
         }
         stage('Build') {
             steps {
-                sh 'yarn run build'
+                sh 'npm run build'
             }
         }
         stage('Upload') {

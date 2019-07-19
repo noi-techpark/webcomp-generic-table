@@ -1,6 +1,6 @@
-const SET_MARKER = 'SET_MARKER'
-const REMOVE_MARKER = 'REMOVE_MARKER'
-const CLEAR = 'CLEAR'
+const SET_MARKER = "SET_MARKER";
+const REMOVE_MARKER = "REMOVE_MARKER";
+const CLEAR = "CLEAR";
 
 export default {
 	state: {
@@ -8,17 +8,17 @@ export default {
 		changed: false
 	},
 	mutations: {
-		[SET_MARKER](state, {markerId, marker}) {
+		[SET_MARKER](state, { markerId, marker }) {
 			state.markers[markerId] = marker;
-			state.changed = !state.changed
+			state.changed = !state.changed;
 		},
 		[REMOVE_MARKER](state, markerId) {
 			delete state.markers[markerId];
-			state.changed = !state.changed
+			state.changed = !state.changed;
 		},
 		[CLEAR](state) {
 			state.markers = null;
-			state.changed = !state.changed
+			state.changed = !state.changed;
 		}
 	},
 	actions: {
@@ -30,7 +30,7 @@ export default {
 			commit(REMOVE_MARKER, markerId);
 		},
 		clear({ commit }) {
-			commit(CLEAR)
+			commit(CLEAR);
 		}
 	},
 	getters: {
@@ -41,4 +41,4 @@ export default {
 			return state.changed;
 		}
 	}
-}
+};
